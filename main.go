@@ -4,44 +4,46 @@ import (
 	"fmt"
 )
 
+func printLuckyNumbers(status []string) {
+	for i := 0 + 1; i < len(status); i++ {
+		if status[i] == "+" {
+			fmt.Print(i)
+			fmt.Print(" ")
+		}
+	}
+	fmt.Println(" ")
+}
+
+func removeNumber(status []string, index int) {
+	counter := 0
+	for i := 1; i < len(status); i++ {
+
+		if status[i] != "-" {
+			counter++
+		}
+		if counter%index == 0 {
+			status[i] = "-"
+		}
+	}
+}
+
 func main() {
 
-	var status [100]string
+	// status of numbers: + is lucky number, - is not
+	status := make([]string, 50)
 
-	// remove every 2nd number
-
+	// init status - set all to +
 	for i := 1; i < len(status); i++ {
-
-		if i%2 == 0 {
-			status[i] = "-"
-		} else {
-			status[i] = "+"
-		}
+		status[i] = "+"
 	}
+	printLuckyNumbers(status)
 
-	for i := 4; i < len(status); i++ {
-
-		if i%3 == 0 {
-			status[i] = "-"
-		}
-	}
-
-	for i := 8; i < len(status); i++ {
-
-		if i%7 == 0 {
-			status[i] = "-"
-		}
-	}
-
-	for i := 10; i < len(status); i++ {
-
-		if i%9 == 0 {
-			status[i] = "-"
-		}
-	}
-
-	for i := 1; i < len(status); i++ {
-		fmt.Printf("%d : %s", i, status[i])
-		fmt.Println()
-	}
+	// start algorythm
+	removeNumber(status, 2)
+	printLuckyNumbers(status)
+	removeNumber(status, 3)
+	printLuckyNumbers(status)
+	removeNumber(status, 7)
+	printLuckyNumbers(status)
+	removeNumber(status, 9)
 }
